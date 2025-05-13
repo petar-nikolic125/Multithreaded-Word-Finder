@@ -1,0 +1,1 @@
+This sentence contains censored word bad so it won't appear even if I search for the word dinosaur. This one is clean and mentions dinosaur. Even though this sentence contains both pride and dinosaur, it will be censored entirely.

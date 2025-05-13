@@ -1,0 +1,1 @@
+This file contains the word dinosaur 3 times. The word dinosaur appears in file 6 also 3 times, but 2 of those occurrences are in censored sentences. This file should appear before file 6 in the search results because it contains more valid instances of the word dinosaur.
