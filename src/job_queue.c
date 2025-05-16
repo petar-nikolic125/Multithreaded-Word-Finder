@@ -1,16 +1,22 @@
-//job_queue.c
+#define _POSIX_C_SOURCE 200809L  // timespec_get
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <errno.h>
 #include <pthread.h>
+#include <stdbool.h>
 #include "job_queue.h"
 #include "config.h"
 
-// Initialize queue with capacity (if cap==0, use QUEUE_CAPACITY)
+// Initialize queue with capacity (if cap==0, use QUEUE_CAPACITY).
+// (tail+1)%cap==head.
 void jq_init(JobQueue *q, size_t cap) {
     q->cap   = cap ? cap : QUEUE_CAPACITY;
     q->buf   = calloc(q->cap, sizeof(Job));
+    if (!q->buf) {
+        perror("jq_init: calloc");
+        exit(EXIT_FAILURE);
+    }
     q->head  = q->tail = 0;
     q->closed = false;
     pthread_mutex_init(&q->mtx, NULL);
@@ -24,13 +30,8 @@ void jq_push(JobQueue *q, Job j) {
     struct timespec ts;
     while ((q->tail + 1) % q->cap == q->head) {
         // compute absolute timeout
-        clock_gettime(CLOCK_REALTIME, &ts);
+        timespec_get(&ts, TIME_UTC);
         ts.tv_sec += (time_t)QUEUE_BLOCK_TIMEOUT;
-        ts.tv_nsec += (long)((QUEUE_BLOCK_TIMEOUT - (time_t)QUEUE_BLOCK_TIMEOUT) * 1e9);
-        if (ts.tv_nsec >= 1000000000L) {
-            ts.tv_sec++;
-            ts.tv_nsec -= 1000000000L;
-        }
         int rc = pthread_cond_timedwait(&q->not_full, &q->mtx, &ts);
         if (rc == ETIMEDOUT) {
             fprintf(stderr,
@@ -61,7 +62,8 @@ bool jq_pop(JobQueue *q, Job *out) {
     return true;
 }
 
-// Mark queue as closed and wake all waiters
+// Mark queue as closed and wake all waiters.
+// **Do** not call directly from a signal-handler (not async-signal-safe).
 void jq_shutdown(JobQueue *q) {
     pthread_mutex_lock(&q->mtx);
     q->closed = true;
@@ -70,7 +72,8 @@ void jq_shutdown(JobQueue *q) {
     pthread_mutex_unlock(&q->mtx);
 }
 
-// Destroy queue: free buffer and destroy sync primitives
+// Destroy queue: free buffer and destroy sync primitives.
+
 void jq_destroy(JobQueue *q) {
     pthread_mutex_destroy(&q->mtx);
     pthread_cond_destroy(&q->not_empty);

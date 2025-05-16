@@ -1,0 +1,23 @@
+[1747393995] Loaded 8 censored words
+[1747394004] CMD index data/file1.txt
+[1747394015] CMD index data/file1.txt
+[1747394037] CMD index data/file2.txt
+[1747394043] CMD search dinosaur
+[1747394054] CMD search war
+[1747394054] CENSORED war
+[1747394104] CMD stop
+[1747394104] EXIT summary: 3 indexed, 2 searched
+[1747394837] loaded 8 censored words
+[1747394847] index data/file1.txt
+[1747394873] index data/file2.txt
+[1747394880] search dinosaur
+[1747394887] stop
+[1747394888] EXIT  indexed=2  searched=1
+[1747395680] loaded 0 censored words
+[1747395691] index data/file1.txt
+[1747395716] index data/file2.txt
+[1747395722] index data/file3.txt
+[1747395730] index data/file4.txt
+[1747395744] search dinosaur
+[1747395757] stop
+[1747395758] EXIT  indexed=4  searched=1
