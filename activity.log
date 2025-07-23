@@ -21,3 +21,44 @@
 [1747395744] search dinosaur
 [1747395757] stop
 [1747395758] EXIT  indexed=4  searched=1
+[1748390154] loaded 0 censored words
+[1748390171] index data/file1.txt
+[1748390181] search jesus
+[1748390189] search dinosaur
+[1748390197] unknown _exit_
+[1748390203] stop
+[1748390203] EXIT  indexed=1  searched=2
+[1748546381] loaded 0 censored words
+[1748546391] index data/file1.txt
+[1748546428] unknown _search- nigger
+[1748546435] search nigger
+[1748546441] search dick
+[1748546449] clear
+[1748546461] stop
+[1748546461] EXIT  indexed=1  searched=2
+[1748547421] loaded 0 censored words
+[1748547431] stop
+[1748547431] EXIT  indexed=0  searched=0
+[1748547444] loaded 8 censored words
+[1748558306] unknown ./search_engine
+[1748558321] index data/file1.txt
+[1748558330] search dinosaur
+[1748558334] stop
+[1748558334] EXIT  indexed=1  searched=1
+[1748621711] loaded 8 censored words
+[1748621721] index data/file1.txt
+[1748621729] search dinosaur
+[1748621748] index data/file2.txt
+[1748621758] index data/file4.txt
+[1748621764] search dinosaur
+[1748621784] search data/file1.txt 
+[1748621805] stop
+[1748621805] EXIT  indexed=3  searched=3
+[1748621827] loaded 8 censored words
+[1748621837] index data/file6.txt
+[1748621842] search dinosaur
+[1748621853] index data/file5.txt
+[1748621858] search dinosaur
+[1748621875] censored war
+[1748621881] stop
+[1748621881] EXIT  indexed=2  searched=2
